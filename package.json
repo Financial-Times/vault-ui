@@ -13,7 +13,7 @@
     "serve": "nodemon ./server.js",
     "dev-pack": "webpack -d --env.target=web --hide-modules -w",
     "build-desktop": "webpack -p --env.target=electron --hide-modules",
-    "build-web": "webpack -p --env.target=web --hide-modules",
+    "postinstall": "webpack -p --env.target=web --hide-modules",
     "desktop": "yarn run build-desktop && electron .",
     "package-mac": "yarn run build-desktop && build --mac=zip --ia32 --x64 --publish never",
     "package-win32": "yarn run build-desktop && build --win=nsis --ia32 --x64 --publish never",
