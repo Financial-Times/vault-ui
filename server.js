@@ -11,6 +11,14 @@ var app = express();
 
 app.set('port', (process.env.PORT || 8000));
 app.set('view engine', 'html');
+app.set('trust proxy', true)
+
+app.use((req, res, next) => {
+  if (req.protocol === 'http') {
+    res.redirect(301, 'https://' + req.hostname)
+  }
+  next()
+})
 
 app.use(s3o);
 
