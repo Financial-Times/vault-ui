@@ -78,6 +78,7 @@
     "webpack": "^2.3.3"
   },
   "dependencies": {
+    "@financial-times/s3o-middleware": "^2.0.4",
     "axios": "^0.16.1",
     "body-parser": "^1.15.2",
     "compression": "^1.6.2",

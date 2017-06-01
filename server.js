@@ -1,16 +1,19 @@
 'use strict';
 
-var express = require('express');
+const s3o = require('@financial-times/s3o-middleware');
 var bodyParser = require('body-parser');
+var compression = require('compression');
+var express = require('express');
 var path = require('path');
 var routeHandler = require('./src/routeHandler');
-var compression = require('compression');
-
-app.set('port', (process.env.PORT || 8000));
 
 var app = express();
+
+app.set('port', (process.env.PORT || 8000));
 app.set('view engine', 'html');
-// app.engine('html', require('hbs').__express);
+
+app.use(s3o);
+
 app.use('/dist', compression(), express.static('dist'));
 
 // parse application/x-www-form-urlencoded
