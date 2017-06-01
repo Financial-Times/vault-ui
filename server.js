@@ -6,7 +6,7 @@ var path = require('path');
 var routeHandler = require('./src/routeHandler');
 var compression = require('compression');
 
-var PORT = 8000;
+app.set('port', (process.env.PORT || 8000));
 
 var app = express();
 app.set('view engine', 'html');
@@ -25,17 +25,13 @@ app.use(function (req, res, next) {
     next();
 });
 
-app.listen(PORT, function () {
-    console.log('Vault UI listening on: ' + PORT);
+app.listen(app.get('port'), function() {
+  console.log('Vault UI is running on port', app.get('port'));
 });
 
 app.get('/vaultui', function(req,res) {
     routeHandler.vaultuiHello(req, res);
 });
-
-app.all('/v1/*', function(req, res) {
-    routeHandler.vaultapi(req, res);
-})
 
 app.get('/');
 
