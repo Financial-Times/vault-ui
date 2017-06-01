@@ -44,6 +44,10 @@ app.get('/vaultui', function(req,res) {
     routeHandler.vaultuiHello(req, res);
 });
 
+app.all('/v1/*', function(req, res) {
+    routeHandler.vaultapi(req, res);
+})
+
 app.get('/');
 
 app.get('*', function (req, res) {
