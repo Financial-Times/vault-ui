@@ -80,7 +80,8 @@ class GenericSecretBackend extends React.Component {
             'renderEditObjectDialog',
             'renderDeleteConfirmationDialog',
             'setPage',
-            'setNewMaxItems'
+            'setNewMaxItems',
+            'resetPage'
         );
     }
 
@@ -132,18 +133,27 @@ class GenericSecretBackend extends React.Component {
             })
     }
 
-    setPage(page, filteredSecretList) {
+    setPage(page, filteredSecretList, sortDirection = undefined) {
         // Never allow a 0th or negative page
         page = page <= 0 ? 1 : page;
-        let _pagedSecrets = _.chunk(filteredSecretList, this.state.maxItemsPerPage);
+        sortDirection = sortDirection ? sortDirection : this.state.secretSortDir;
+        let sortedSecrets = _.orderBy(filteredSecretList, _.identity, sortDirection);
+        let _pagedSecrets = _.chunk(sortedSecrets, this.state.maxItemsPerPage);
         this.setState(
             {
-                filteredSecretList: filteredSecretList,
+                secretSortDir: sortDirection,
+                filteredSecretList: sortedSecrets,
                 currentPage: page,
-                totalPages: Math.ceil(filteredSecretList.length / this.state.maxItemsPerPage),
+                totalPages: Math.ceil(sortedSecrets.length / this.state.maxItemsPerPage),
                 pagedSecrets: _pagedSecrets,
                 secretList: _pagedSecrets[page - 1]
             });
+    }
+
+    resetPage() {
+        this.setState({
+            currentPage: 1
+        });
     }
 
     //TODO: Incase we add functionality to allow users to modify maximum secrets on screen
@@ -208,6 +218,7 @@ class GenericSecretBackend extends React.Component {
     componentDidUpdate(prevProps) {
         if (!_.isEqual(this.props.params, prevProps.params)) {
             if (this.isPathDirectory(this.props.params.splat)) {
+                this.resetPage();
                 this.loadSecretsList(prevProps);
             } else {
                 this.displaySecret();
@@ -417,8 +428,7 @@ class GenericSecretBackend extends React.Component {
 
     render() {
         let renderSecretListItems = (returndirs, returnobjs) => {
-            let sortedSecrets = _.orderBy(this.state.secretList, _.identity, this.state.secretSortDir);
-            return _.map(sortedSecrets, (key) => {
+            return _.map(this.state.secretList, (key) => {
                 let avatar = (<Avatar icon={<ActionAssignment />} />);
                 let action = (
                     <IconButton
@@ -524,7 +534,9 @@ class GenericSecretBackend extends React.Component {
                                         autoWidth={true}
                                         floatingLabelText="Sort Secrets"
                                         floatingLabelFixed={true}
-                                        value={this.state.secretSortDir} onChange={(e, i, v) => { this.setState({ secretSortDir: v }) }}
+                                        value={this.state.secretSortDir} onChange={(e, i, v) => {
+                                            this.setPage(this.state.currentPage, this.state.filteredSecretList, v);
+                                        }}
                                     >
                                         <MenuItem value={SORT_DIR.ASC} primaryText="Ascending" />
                                         <MenuItem value={SORT_DIR.DESC} primaryText="Descending" />
