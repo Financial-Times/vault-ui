@@ -12,6 +12,7 @@ var app = express();
 app.set('port', (process.env.PORT || 8000));
 app.set('view engine', 'html');
 app.set('trust proxy', true)
+app.set('s3o-cookie-ttl', 28800000); // 8 hours
 
 app.use((req, res, next) => {
   if (req.protocol === 'http') {
