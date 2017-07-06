@@ -15,7 +15,7 @@ app.set('trust proxy', true)
 app.set('s3o-cookie-ttl', 28800000); // 8 hours
 
 app.use((req, res, next) => {
-  if (req.protocol === 'http') {
+  if (process.env.NODE_ENV === 'production' && req.protocol === 'http') {
     res.redirect(301, 'https://' + req.hostname)
   }
   next()

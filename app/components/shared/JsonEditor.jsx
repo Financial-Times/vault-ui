@@ -65,8 +65,7 @@ class JsonEditor extends React.Component {
         var container = this.editorEl;//ReactDOM.findDOMNode(this);
         var options = {
             name: this.props.rootName,
-            mode: this.props.mode,
-            modes: this.props.modes,
+            mode: 'code',
             schema: this.props.schema,
             onChange: this.handleInputChange,
         };
