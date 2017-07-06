@@ -1,6 +1,6 @@
 {
   "name": "Vault-UI",
-  "version": "2.2.0",
+  "version": "2.2.1-dev",
   "description": "Graphical interface for Hashicorp Vault",
   "main": "main.js",
   "browserslist": [
@@ -18,7 +18,7 @@
     "package-mac": "yarn run build-desktop && build --mac=zip --ia32 --x64 --publish never",
     "package-win32": "yarn run build-desktop && build --win=nsis --ia32 --x64 --publish never",
     "package-linux": "yarn run build-desktop && build --linux=appimage --ia32 --x64 --publish never",
-    "publish": "yarn run build-desktop && build --mac=zip --win=nsis --linux=appimage --ia32 --x64 --publish always",
+    "publish": "yarn run build-desktop && build --mac zip --win nsis --linux appimage --ia32 --x64 --publish onTag",
     "cleanup": "mop -v"
   },
   "repository": {
@@ -38,7 +38,8 @@
     "presets": [
       "es2015",
       "react",
-      "stage-2"
+      "stage-2",
+      "stage-0"
     ]
   },
   "homepage": "https://github.com/djenriquez/vault-ui#readme",
@@ -49,6 +50,7 @@
     "babel-loader": "^6.4.1",
     "babel-preset-es2015": "^6.18.0",
     "babel-preset-react": "^6.16.0",
+    "babel-preset-stage-0": "^6.22.0",
     "babel-preset-stage-2": "^6.18.0",
     "copy-to-clipboard": "^3.0.5",
     "cross-env": "^3.1.4",
@@ -63,6 +65,8 @@
     "flexboxgrid": "^6.3.1",
     "hcl-to-json": "0.0.4",
     "immutability-helper": "^2.1.2",
+    "jsondiffpatch": "^0.2.4",
+    "jsondiffpatch-for-react": "^1.0.1",
     "jsoneditor": "^5.5.11",
     "lodash": "^4.16.6",
     "material-ui": "^0.16.7",
