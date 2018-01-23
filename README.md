@@ -3,8 +3,9 @@
          title="Vault-UI" width="64px" align="right" />
 </a>
 
-[![](https://images.microbadger.com/badges/image/djenriquez/vault-ui.svg)](https://microbadger.com/images/djenriquez/vault-ui)
 [![Run Status](https://api.shippable.com/projects/581e7826fbc68c0f00deb0ca/badge?branch=master)](https://app.shippable.com/projects/581e7826fbc68c0f00deb0ca)
+[![](https://images.microbadger.com/badges/image/djenriquez/vault-ui.svg)](https://microbadger.com/images/djenriquez/vault-ui)
+[![Join the chat at https://gitter.im/vault-ui/Lobby](https://badges.gitter.im/vault-ui/Lobby.svg)](https://gitter.im/vault-ui/Lobby)
 
 # Vault-UI
 
@@ -62,11 +63,13 @@ djenriquez/vault-ui
 ```
 
 Supported environment variables:
-- `NODE_TLS_REJECT_UNAUTHORIZED` disable TLS server side validation (ex. vault deployed with self-signed certificate)
-- `VAULT_URL_DEFAULT` will set the default vault endpoint.
-- `VAULT_AUTH_DEFAULT` will set the default authentication method type. See below for supported authentication methods.
-- `VAULT_AUTH_BACKEND_PATH` will set the default backend path. Useful when multiple backends of the same type are mounted on the vault file system.
-- `VAULT_SUPPLIED_TOKEN_HEADER` will instruct Vault-UI to attempt authentication using a token provided by the client in the specified HTTP request header.
+- `PORT` Sets the port for Vault-UI to listen on. (Default 8000)
+- `CUSTOM_CA_CERT` Pass a self-signed certificate that the system should trust.
+- `NODE_TLS_REJECT_UNAUTHORIZED` Disable TLS server side validation. (ex. vault deployed with self-signed certificate). Set to `0` to disable.
+- `VAULT_URL_DEFAULT` Sets the default vault endpoint. Note: protocol part of the url is mandatory. Example: http://10.0.0.1:8200
+- `VAULT_AUTH_DEFAULT` Sets the default authentication method type. See below for supported authentication methods.
+- `VAULT_AUTH_BACKEND_PATH` Sets the default backend path. Useful when multiple backends of the same type are mounted on the vault file system.
+- `VAULT_SUPPLIED_TOKEN_HEADER` Instructs Vault-UI to attempt authentication using a token provided by the client in the specified HTTP request header.
 
 This defaults can be overridden if the user fills out the endpoint and auth method manually.
 
@@ -83,6 +86,7 @@ Current supported management of backend auth methods:
 - [AWS-EC2](https://www.vaultproject.io/docs/auth/aws-ec2.html)
 - [Username & Password](https://www.vaultproject.io/docs/auth/userpass.html)
 - [Token](https://www.vaultproject.io/docs/auth/token.html)
+- [AppRole](https://www.vaultproject.io/docs/auth/approle.html)
 
 In some cases, users might want to use middleware to authenticate into Vault-UI for purposes like SSO. In this case, the `VAULT_SUPPLIED_TOKEN_HEADER` may be populated with the name of the header that contains a token to be used for authentication.
 
@@ -161,7 +165,7 @@ Users have the ability to create and revoke tokens, manage token roles and list 
   "path": {
      "auth/token/accessors": {
        "capabilities": [
-         "sudo", 
+         "sudo",
          "list"
        ]
     },
@@ -211,3 +215,6 @@ yarn start
 
 # Licensing
 Vault-UI is licensed under BSD 2-Clause. See [LICENSE](https://github.com/djenriquez/vault-ui/blob/master/LICENSE) for the full license text.
+
+# Donations
+Vault-UI maintainers are humbly accepting [donations](https://github.com/djenriquez/vault-ui/wiki/Donations) as a way of saying thank you!

@@ -19,6 +19,8 @@ import GithubAuthBackend from './components/Authentication/Github/Github.jsx';
 import RadiusAuthBackend from './components/Authentication/Radius/Radius.jsx';
 import UserPassAuthBackend from './components/Authentication/UserPass/UserPass.jsx';
 import SecretUnwrapper from './components/shared/Wrapping/Unwrapper';
+import OktaAuthBackend from './components/Authentication/Okta/Okta.jsx';
+import AppRoleAuthBackend from './components/Authentication/AppRole/AppRole.jsx'
 
 // Load here to signal webpack
 import 'flexboxgrid/dist/flexboxgrid.min.css';
@@ -77,13 +79,15 @@ ReactDOM.render((
             <Route path="/login" component={Login} onEnter={checkVaultUiServer} />
             <Route path="/unwrap" component={SecretUnwrapper} />
             <Route path="/" component={App} onEnter={checkAccessToken}>
-                <Route path="/secrets/generic/:namespace(/**)" component={SecretsGeneric} />
+                <Route path="/secrets/:namespace(/**)" component={SecretsGeneric} />
                 <Route path="/auth/token/:namespace" component={TokenAuthBackend} />
                 <Route path="/auth/aws/:namespace(/**)" component={AwsAuthBackend} />
                 <Route path="/auth/aws-ec2/:namespace(/**)" component={AwsEc2AuthBackend} />
                 <Route path="/auth/github/:namespace(/**)" component={GithubAuthBackend} />
                 <Route path="/auth/radius/:namespace(/**)" component={RadiusAuthBackend} />
+                <Route path="/auth/okta/:namespace(/**)" component={OktaAuthBackend} />
                 <Route path="/auth/userpass/:namespace(/**)" component={UserPassAuthBackend} />
+                <Route path="/auth/approle/:namespace(/**)" component={AppRoleAuthBackend} />
                 <Route path="/settings" component={Settings} />
                 <Route path="/responsewrapper" component={ResponseWrapper} />
                 <Route path="/sys/policies(/**)" component={PolicyManager} />

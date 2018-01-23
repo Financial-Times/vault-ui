@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import _ from 'lodash';
 import styles from './menu.css';
 import Drawer from 'material-ui/Drawer';
@@ -13,7 +14,8 @@ import { tokenHasCapabilities, callVaultApi, history } from '../VaultUtils.jsx'
 const SelectableList = makeSelectable(List);
 
 const supported_secret_backend_types = [
-    'generic'
+    'generic',
+    'kv'
 ]
 
 const supported_auth_backend_types = [
@@ -22,7 +24,9 @@ const supported_auth_backend_types = [
     'radius',
     'aws-ec2',
     'userpass',
-    'aws'
+    'aws',
+    'okta',
+    'approle'
 ]
 
 function snackBarMessage(message) {
