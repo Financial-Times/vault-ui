@@ -1,6 +1,6 @@
 'use strict';
 
-var VAULT_URL_DEFAULT = process.env.VAULT_URL_DEFAULT || "https://vault.in.ft.com";
+var VAULT_URL_DEFAULT = process.env.VAULT_URL_DEFAULT || "https://vault-dev.in.ft.com";
 var VAULT_URL_DEFAULT_FORCE = process.env.VAULT_URL_DEFAULT_FORCE ? true : false;
 var VAULT_AUTH_DEFAULT = process.env.VAULT_AUTH_DEFAULT || "GITHUB";
 var VAULT_AUTH_DEFAULT_FORCE = process.env.VAULT_AUTH_DEFAULT_FORCE ? true : false;
